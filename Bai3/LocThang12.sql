@@ -1,0 +1,2 @@
+SELECT * FROM Class 
+WHERE MONTH(StartDate) = 12;

@@ -1,0 +1,6 @@
+DELIMITER //
+CREATE PROCEDURE getAllProducts()
+BEGIN
+    SELECT * FROM Products;
+END //
+DELIMITER ;
