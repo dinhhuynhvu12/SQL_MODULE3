@@ -1,0 +1,5 @@
+DELETE FROM nhan_vien 
+WHERE MANHANVIEN NOT IN (
+    SELECT MANHANVIEN FROM hop_dong 
+    WHERE YEAR(ngay_lam_hop_dong) BETWEEN 2019 AND 2021
+);
