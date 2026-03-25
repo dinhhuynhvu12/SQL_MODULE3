@@ -1,0 +1,52 @@
+body {
+	margin: 0;
+	background-color:white;
+	font-family: Arial;
+	color: black;
+}
+
+.page {
+	width: min(1000px, 100%);
+	margin: 10px auto 0;
+	background-color: white;
+
+
+
+	padding: 14px 18px 24px;
+	box-sizing: border-box;
+}
+
+h1 {
+	margin: 0;
+	padding-bottom: 2px;
+	font-size: 48px;
+	line-height: 1;
+	font-family: "Times New Roman";
+	font-weight: 700;
+	border-bottom: 1px solid black;
+}
+
+.subtitle {
+	font-size: 30px;
+	font-family: "Times New Roman"	;
+}
+
+p {
+	margin: 0 0 14px;
+	text-align: justify;
+	text-indent: 48px;
+	font-size: 36px;
+	line-height: 1.28;
+	letter-spacing: -0.2px;
+}
+a {
+	color: #1a29a6;
+	text-decoration: none;
+
+	
+
+	font-weight: 600;
+}
+strong {
+	font-weight: 700;
+}
