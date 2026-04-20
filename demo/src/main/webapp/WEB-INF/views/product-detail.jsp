@@ -17,6 +17,9 @@
     <p><strong>ID:</strong> <%= p.getId() %></p>
     <p><strong>Description:</strong> <%= WebUtils.escapeHtml(p.getDescription()) %></p>
     <p><strong>Price:</strong> <%= p.getPrice() == null ? "" : p.getPrice().toString() %></p>
+    <% String catName = (String) request.getAttribute("categoryName"); if (catName != null) { %>
+    <p><strong>Category:</strong> <%= WebUtils.escapeHtml(catName) %></p>
+    <% } %>
     <p><a href="<%=request.getContextPath()%>/products">Back to list</a> | <a href="<%=request.getContextPath()%>/products/edit?id=<%=p.getId()%>">Edit</a></p>
 <% } %>
 </body>

@@ -26,6 +26,20 @@
     <label>Description:<br/>
         <textarea name="description" rows="4" cols="50"><%=WebUtils.escapeHtml(p.getDescription())%></textarea>
     </label><br/>
+    <label>Category:
+        <select name="category_id">
+            <option value="">-- none --</option>
+            <% java.util.List<com.example.productapp.model.Category> cats = (java.util.List<com.example.productapp.model.Category>) request.getAttribute("categories");
+               if (cats != null) {
+                   for (com.example.productapp.model.Category c : cats) {
+                       String sel = (p.getCategoryId() != null && p.getCategoryId().intValue() == c.getId()) ? "selected" : "";
+            %>
+            <option value="<%=c.getId()%>" <%=sel%>><%=WebUtils.escapeHtml(c.getName())%></option>
+            <%   }
+               }
+            %>
+        </select>
+    </label><br/>
     <label>Price: <input type="text" name="price" value="<%=p.getPrice()==null?"":p.getPrice()%>"/></label><br/>
     <input type="submit" value="Save"/>
 </form>

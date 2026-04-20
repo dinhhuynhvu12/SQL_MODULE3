@@ -9,6 +9,8 @@ public interface ProductService {
     List<Product> findAll();
     Optional<Product> findById(int id);
     List<Product> findByName(String name);
+    List<Product> search(String name, Integer categoryId, int offset, int limit);
+    int countSearch(String name, Integer categoryId);
     Product create(Product product);
     boolean update(Product product);
     boolean delete(int id);

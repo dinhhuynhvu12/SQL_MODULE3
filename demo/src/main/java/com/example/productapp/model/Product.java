@@ -9,16 +9,18 @@ public class Product {
     private String description;
     private BigDecimal price;
     private LocalDateTime createdAt;
+    private Integer categoryId;
 
     public Product() {
     }
 
-    public Product(int id, String name, String description, BigDecimal price, LocalDateTime createdAt) {
+    public Product(int id, String name, String description, BigDecimal price, LocalDateTime createdAt, Integer categoryId) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.createdAt = createdAt;
+        this.categoryId = categoryId;
     }
 
     public int getId() {
@@ -59,5 +61,13 @@ public class Product {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Integer getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
     }
 }

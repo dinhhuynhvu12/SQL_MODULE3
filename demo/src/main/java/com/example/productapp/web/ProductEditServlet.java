@@ -3,6 +3,8 @@ package com.example.productapp.web;
 import com.example.productapp.model.Product;
 import com.example.productapp.service.ProductService;
 import com.example.productapp.service.ProductServiceFactory;
+import com.example.productapp.service.CategoryService;
+import com.example.productapp.service.JdbcCategoryServiceImpl;
 import com.example.productapp.util.WebUtils;
 
 import jakarta.servlet.ServletException;
@@ -19,6 +21,11 @@ import java.util.Optional;
 public class ProductEditServlet extends HttpServlet {
     private final ProductService productService = ProductServiceFactory.getInstance();
 
+    private CategoryService getCategoryService(HttpServletRequest req) {
+        Object o = req.getServletContext().getAttribute("categoryService");
+        return o instanceof CategoryService ? (CategoryService) o : new JdbcCategoryServiceImpl();
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = WebUtils.parseIntSafe(req.getParameter("id"), -1);
@@ -29,6 +36,7 @@ public class ProductEditServlet extends HttpServlet {
         }
         req.setAttribute("product", p.get());
         req.setAttribute("action", "update");
+        req.setAttribute("categories", getCategoryService(req).findAll());
         req.getRequestDispatcher("/WEB-INF/views/product-form.jsp").forward(req, resp);
     }
 
@@ -67,6 +75,9 @@ public class ProductEditServlet extends HttpServlet {
         p.setName(name);
         p.setDescription(description);
         p.setPrice(price);
+        String catStr = WebUtils.orEmpty(req.getParameter("category_id")).trim();
+        int catId = WebUtils.parseIntSafe(catStr, -1);
+        if (catId > 0) p.setCategoryId(catId); else p.setCategoryId(null);
         productService.update(p);
         resp.sendRedirect(req.getContextPath() + "/products?message=Updated");
     }

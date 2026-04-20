@@ -50,6 +50,40 @@ public class InMemoryProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> search(String name, Integer categoryId, int offset, int limit) {
+        List<Product> filtered = new ArrayList<>();
+        String q = name == null ? null : name.trim().toLowerCase();
+        for (Product p : store.values()) {
+            if (q != null && !q.isEmpty()) {
+                if (p.getName() == null || !p.getName().toLowerCase().contains(q)) continue;
+            }
+            if (categoryId != null && categoryId > 0) {
+                if (p.getCategoryId() == null || !p.getCategoryId().equals(categoryId)) continue;
+            }
+            filtered.add(p);
+        }
+        int fromIndex = Math.max(0, Math.min(offset, filtered.size()));
+        int toIndex = Math.max(fromIndex, Math.min(fromIndex + Math.max(0, limit), filtered.size()));
+        return new ArrayList<>(filtered.subList(fromIndex, toIndex));
+    }
+
+    @Override
+    public int countSearch(String name, Integer categoryId) {
+        String q = name == null ? null : name.trim().toLowerCase();
+        int cnt = 0;
+        for (Product p : store.values()) {
+            if (q != null && !q.isEmpty()) {
+                if (p.getName() == null || !p.getName().toLowerCase().contains(q)) continue;
+            }
+            if (categoryId != null && categoryId > 0) {
+                if (p.getCategoryId() == null || !p.getCategoryId().equals(categoryId)) continue;
+            }
+            cnt++;
+        }
+        return cnt;
+    }
+
+    @Override
     public Product create(Product product) {
         int id = idGen.incrementAndGet();
         product.setId(id);
@@ -65,6 +99,7 @@ public class InMemoryProductServiceImpl implements ProductService {
             existing.setName(product.getName());
             existing.setDescription(product.getDescription());
             existing.setPrice(product.getPrice());
+            existing.setCategoryId(product.getCategoryId());
             return existing;
         }) != null;
     }
